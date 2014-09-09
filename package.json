@@ -12,6 +12,9 @@
     "pre-tape": "0.0.1",
     "rimraf": "^2.2.8"
   },
+  "devDependencies": {
+    "jshint": "^2.5.5"
+  },
   "scripts": {
     "test": "./node_modules/.bin/jshint index.js"
   }
