@@ -9,10 +9,12 @@ var pretape = require('pre-tape');
 var rimraf = require('rimraf');
 var mkdirp = require('mkdirp');
 var exec = require('child_process').exec;
+var _ = require('highland');
 
 
 var COUCH_PORT = 5989;
-var COUCH_URL = 'http://localhost:' + COUCH_PORT;
+var COUCH_URL = 'http://admin:password@localhost:' + COUCH_PORT;
+var COUCH_URL_NO_AUTH = 'http://localhost:' + COUCH_PORT;
 var COUCH_DIR = __dirname + '/testdb';
 
 
@@ -36,8 +38,16 @@ var exports = module.exports = pretape({
       couch.once('start', function () {
         // give couch time to start accepting requests
         setTimeout(function () {
-          couchr.put(COUCH_URL + '/example', {}).apply(function () {
-            done();
+          _([
+            couchr.put(
+              COUCH_URL_NO_AUTH + '/_config/admins/admin',
+              '"password"'
+            ),
+            couchr.put(COUCH_URL + '/example', {}),
+          ])
+          .series()
+          .toArray(function (responses) {
+              return done();
           });
         }, 2000);
       });
@@ -52,4 +62,5 @@ var exports = module.exports = pretape({
 // provide these values to users of the harness
 exports.COUCH_PORT = COUCH_PORT;
 exports.COUCH_URL = COUCH_URL;
+exports.COUCH_URL_NO_AUTH = COUCH_URL_NO_AUTH;
 exports.COUCH_DIR = COUCH_DIR;
