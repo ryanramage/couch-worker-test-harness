@@ -15,5 +15,11 @@
   },
   "scripts": {
     "test": "./node_modules/.bin/jshint index.js"
-  }
+  },
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/ryanramage/couch-worker-test-harness/issues"
+  },
+  "homepage": "https://github.com/ryanramage/couch-worker-test-harness",
+  "author": "Caolan McMahon (@caolan)"
 }
