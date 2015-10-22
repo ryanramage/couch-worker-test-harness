@@ -1,7 +1,7 @@
 {
   "name": "couch-worker-test-harness",
   "descriptions": "Sets up local CouchDB instance for integration tests",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "dependencies": {
     "highland": "^1.29.0",
     "highland-couchr": "^1.4.0",
